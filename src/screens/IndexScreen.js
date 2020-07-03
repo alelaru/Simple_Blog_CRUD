@@ -3,13 +3,13 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import { Context } from "../context/BlogContext";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 // Wire the blog-post provider
 
-function IndexScreen({ navigation }) {
+const IndexScreen = ({ navigation }) => {
   //   const blogPosts = useContext(BlogContext);
 
   const { state, addBlogPost, deleteBlogPost } = useContext(Context);
-  console.log(state);
   return (
     <View>
       <Button title="Add Post" onPress={addBlogPost}></Button>
@@ -39,7 +39,17 @@ function IndexScreen({ navigation }) {
       />
     </View>
   );
-}
+};
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+        <AntDesign name="plus" size={24} color="black" />
+      </TouchableOpacity>
+    ),
+  };
+};
 
 const styles = StyleSheet.create({
   blogStyle: {
