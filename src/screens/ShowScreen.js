@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import { Context } from "../context/BlogContext";
+import { Feather } from "@expo/vector-icons";
 
-function ShowScreen({ navigation }) {
+const ShowScreen = ({ navigation }) => {
   const id = navigation.getParam("id");
   const { state } = useContext(Context);
 
@@ -10,15 +11,27 @@ function ShowScreen({ navigation }) {
     (blogPost) => blogPost.id === navigation.getParam("id")
   );
 
-  console.log("Aquí");
-  console.log(blogPost);
-
   return (
     <View style={styles.blogStyle}>
       <Text style={styles.textStyle}>{blogPost.title}</Text>
+      <Text style={styles.textStyle}>{blogPost.content}</Text>
     </View>
   );
-}
+};
+
+ShowScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Edit", { id: navigation.getParam("id") });
+        }}
+      >
+        <Feather name="edit" size={24} color="black" />
+      </TouchableOpacity>
+    ),
+  };
+};
 
 const styles = StyleSheet.create({
   blogStyle: {

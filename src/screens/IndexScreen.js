@@ -45,7 +45,12 @@ IndexScreen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: () => (
       <TouchableOpacity onPress={() => navigation.navigate("Create")}>
-        <AntDesign name="plus" size={24} color="black" />
+        <AntDesign
+          name="plus"
+          size={24}
+          color="black"
+          style={styles.iconStyle}
+        />
       </TouchableOpacity>
     ),
   };
@@ -67,6 +72,9 @@ const styles = StyleSheet.create({
   iconStyle: {
     color: "black",
     fontSize: 24,
+    marginRight: 10,
+  },
+  iconStyle: {
     marginRight: 10,
   },
 });

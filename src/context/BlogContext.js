@@ -26,6 +26,10 @@ const blogReducer = (state, action) => {
           content: action.payload.content,
         },
       ];
+    case "edit_blogpost":
+      // This creates a new list of all blogs
+      return null;
+    // return state.filter((blogPost) => blogPost.id !== action.payload);
     default:
       return null;
   }
@@ -50,6 +54,15 @@ const createBlogPost = (dispatch) => {
       payload: { title: title, content: content },
     });
     callBack();
+  };
+};
+
+const editBlogPost = (dispatch) => {
+  return (id, title, content) => {
+    dispatch({
+      type: "edit_blogpost",
+      payload: { id: id, title: title, content: content },
+    });
   };
 };
 
