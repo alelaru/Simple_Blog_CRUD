@@ -5,6 +5,7 @@ import createDataContext from "./createDataContext";
 const blogReducer = (state, action) => {
   switch (action.type) {
     case "delete_blogpost":
+      // This creates a new list of all blogs
       return state.filter((blogPost) => blogPost.id !== action.payload);
     case "addBlogPost":
       return [

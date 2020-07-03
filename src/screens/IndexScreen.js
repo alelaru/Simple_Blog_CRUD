@@ -5,7 +5,7 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
 // Wire the blog-post provider
 
-function IndexScreen() {
+function IndexScreen({ navigation }) {
   //   const blogPosts = useContext(BlogContext);
 
   const { state, addBlogPost, deleteBlogPost } = useContext(Context);
@@ -18,18 +18,22 @@ function IndexScreen() {
         keyExtractor={(blogPost) => blogPost.title}
         renderItem={({ item }) => {
           return (
-            <View style={styles.blogStyle}>
-              <Text style={styles.textStyle}>
-                {item.title} - {item.id}
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  deleteBlogPost(item.id);
-                }}
-              >
-                <FontAwesome name="trash" style={styles.iconStyle} />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Show", { id: item.id })}
+            >
+              <View style={styles.blogStyle}>
+                <Text style={styles.textStyle}>
+                  {item.title} - {item.id}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    deleteBlogPost(item.id);
+                  }}
+                >
+                  <FontAwesome name="trash" style={styles.iconStyle} />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           );
         }}
       />
