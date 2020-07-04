@@ -1,16 +1,25 @@
 import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { Context } from "../context/BlogContext";
-import BlogPostForm from "../components/blogPostForm";
+import BlogsPostForm from "../components/BlogsPostForm";
 
 function EditScreen({ navigation }) {
-  const { state } = useContext(Context);
+  const id = navigation.getParam("id");
+  const { state, editBlogPost } = useContext(Context);
 
   const blogPost = state.find(
     (blogPost) => blogPost.id === navigation.getParam("id")
   );
 
-  return <BlogPostForm />;
+  return (
+    <BlogsPostForm
+      initialValues={{ title: blogPost.title, content: blogPost.content }}
+      onSubmit={(title, content) => {
+        console.log(title, content);
+        editBlogPost(id, title, content);
+      }}
+    />
+  );
 }
 
 const styles = StyleSheet.create({

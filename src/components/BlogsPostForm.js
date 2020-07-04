@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-function BlogPostForm() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+function BlogsPostForm({ onSubmit, initialValues }) {
+  const [title, setTitle] = useState(initialValues.title);
+  const [content, setContent] = useState(initialValues.content);
   return (
     <View>
-      <Text style={styles.textStyle}>Enter Title:</Text>
+      <Text style={styles.textStyle}>{title}</Text>
       <TextInput
         style={styles.inputStyle}
         value={title}
@@ -15,7 +15,7 @@ function BlogPostForm() {
           setTitle(text);
         }}
       />
-      <Text style={styles.textStyle}>Enter Content:</Text>
+      <Text style={styles.textStyle}>Enter:</Text>
       <TextInput
         style={styles.inputStyle}
         value={content}
@@ -26,14 +26,20 @@ function BlogPostForm() {
       <Button
         title="Save Blog Post"
         onPress={() => {
-          //   createBlogPost(title, content, () => {
-          //     navigation.navigate("Index");
-          //   });
+          onSubmit(title, content);
         }}
       ></Button>
     </View>
   );
 }
+
+// Used to pass some default values it works
+BlogsPostForm.defaultProps = {
+  initialValues: {
+    title: "",
+    content: "",
+  },
+};
 
 const styles = StyleSheet.create({
   textStyle: {
@@ -48,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BlogPostForm;
+export default BlogsPostForm;
