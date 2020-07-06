@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { Context } from "../context/BlogContext";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
@@ -9,10 +9,22 @@ import { AntDesign } from "@expo/vector-icons";
 const IndexScreen = ({ navigation }) => {
   //   const blogPosts = useContext(BlogContext);
 
-  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
+  const { state, deleteBlogPost, getBlogPost } = useContext(Context);
+
+  useEffect(() => {
+    getBlogPost();
+
+    const listener = navigation.addListener("didFocus", () => {
+      getBlogPost();
+      // Clean listeners
+      return () => {
+        listener.remove();
+      };
+    });
+  }, []);
+
   return (
     <View>
-      <Button title="Add Post" onPress={addBlogPost}></Button>
       <FlatList
         data={state}
         keyExtractor={(blogPost) => blogPost.title}

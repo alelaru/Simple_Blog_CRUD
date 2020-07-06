@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import jsonServer from "../api/jsonServer";
 
 function BlogsPostForm({ onSubmit, initialValues }) {
   const [title, setTitle] = useState(initialValues.title);
