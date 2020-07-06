@@ -27,7 +27,7 @@ const blogReducer = (state, action) => {
         },
       ];
     case "edit_blogpost":
-      // This creates a new list of all blogs
+      // This creates a new list of all blogs with the blog edited
       return state.map((blogPost) => {
         return blogPost.id === action.payload.id ? action.payload : blogPost;
         // if (blogPost.id == action.payload.id) {
@@ -36,7 +36,6 @@ const blogReducer = (state, action) => {
         //   return blogPost;
         // }
       });
-    // return state.filter((blogPost) => blogPost.id !== action.payload);
     default:
       return null;
   }
@@ -60,16 +59,22 @@ const createBlogPost = (dispatch) => {
       type: "create_blogpost",
       payload: { title: title, content: content },
     });
-    callBack();
+    // This is used when we scale the app if we don't send anything it wont crash
+    if (callBack) {
+      callBack();
+    }
   };
 };
 
 const editBlogPost = (dispatch) => {
-  return (id, title, content) => {
+  return (id, title, content, callBack) => {
     dispatch({
       type: "edit_blogpost",
       payload: { id, title, content },
     });
+    if (callBack) {
+      callBack();
+    }
   };
 };
 
